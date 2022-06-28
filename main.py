@@ -63,7 +63,10 @@ def predict():
             return response
 
     except:
-        return render_template('index.html', prediction_text='Prediction Err !!!')
+        response_json = {"message": "Prediction Err"}
+        response_json_string = json.dumps(response_json)
+        response = Response(response_json_string, mimetype='application/json')
+        return response
 
 if __name__ == "__main__":
     app.run(debug=True)
