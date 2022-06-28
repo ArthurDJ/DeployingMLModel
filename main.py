@@ -52,9 +52,15 @@ def predict():
 
         # Making all predictions below 0 lakhs and above 200 lakhs as invalid
         if prediction > 0 and prediction <= 200:
-            return render_template('index.html', prediction_text='Your Input : {} Resale Cost: {} Lakh Rupees'.format(features,prediction))
+            response_json = {"Input": prediction,"Resale Cost":prediction)
+            response_json_string = json.dumps(response_json)
+            response = Response(response_json_string, mimetype='application/json')
+            return response
         else:
-            return render_template('index.html', prediction_text='Invalid Prediction !! Network Unable To Predict For The Given Inputs')
+            response_json = {"message": "Invalid Prediction !! Network Unable To Predict For The Given Inputs"}
+            response_json_string = json.dumps(response_json)
+            response = Response(response_json_string, mimetype='application/json')
+            return response
 
     except:
         return render_template('index.html', prediction_text='Prediction Err !!!')
